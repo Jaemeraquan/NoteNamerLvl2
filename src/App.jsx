@@ -159,12 +159,12 @@ useEffect(() => {
   setQuestions(shuffledQuestions);
   setAskedQuestions([]);
 }, []);
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
+function shuffleArray(array) {
+  for (let i = 1; i < array.length; i++) {
+    const j = Math.floor(Math.random() * (array.length - i)) + 1;
+    [array[i], array[j]] = [array[j], array[i]];
   }
+}
   // Define a state variable to track the button text
   const [viewScoreText, setViewScoreText] = useState('View Score');
 
