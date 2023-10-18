@@ -126,13 +126,11 @@ export default function App() {
     setShowFretboardQuiz(false);
     setSelectedAnswer(null)
   };
-
   const startFretboardQuiz = () => {
     setShowFretboardQuiz(true);
     setShowStaffQuiz(false);
     setSelectedAnswer(null)
   };
-
   document.documentElement.style.setProperty('--viewport-width', '100%');
   document.documentElement.style.setProperty('--viewport-height', '100%');
 document.documentElement.style.setProperty('--viewport-initial-scale', '1');
@@ -148,23 +146,24 @@ useEffect(() => {
     shuffleArray(allOptions); // Shuffle incorrect options
     
     // Randomly select a position for the correct answer
-    const randomPosition = Math.floor(Math.random() * 6);
+    const randomPosition = Math.floor(Math.random() * 5);
     allOptions.splice(randomPosition, 0, question.answerOptions[correctAnswerIndex]);
     
     // Ensure there are only 6 options, even if correct answer was duplicated
-    question.answerOptions = allOptions.slice(0, 6);
+    question.answerOptions = allOptions.slice(0, 5);
   });
 
   shuffleArray(shuffledQuestions);
   setQuestions(shuffledQuestions);
   setAskedQuestions([]);
 }, []);
-function shuffleArray(array) {
-  for (let i = 1; i < array.length; i++) {
-    const j = Math.floor(Math.random() * (array.length - i)) + 1;
-    [array[i], array[j]] = [array[j], array[i]];
+
+  function shuffleArray(array) {
+    for (let i = 1; i < array.length; i++) {
+      const j = Math.floor(Math.random() * (array.length - i)) + 1;
+      [array[i], array[j]] = [array[j], array[i]];
+    }
   }
-}
   // Define a state variable to track the button text
   const [viewScoreText, setViewScoreText] = useState('View Score');
 
@@ -195,17 +194,28 @@ function shuffleArray(array) {
 
   const handleAnswerOptionClick = (isCorrect) => {
     if (isCorrect) {
-        play();
+    //   const randomMessage = responseMessages[Math.floor(Math.random() * responseMessages.length)];
+    // setResponse(randomMessage);
+    //   document.getElementById("response").style.color = "green";
+    //   document.getElementById("response").style.color = "green";
+    console.log("Playing audio:", questions[currentQuestion].answeraudio);
+    console.log("play function:", play); // Check if play is defined
+      console.log(questions[currentQuestion].answeraudio);
+        play(questions[currentQuestion].answeraudio); // Use the regular play function
+  
       setIsAnswered(true);
       setTimeout(() => {
         getNextQuestion();
         setSelectedAnswer(null)
-      }, 5000);
+      }, 3000);
       setScore(score + 1);
       setQuestionCount(questionCount + 1);
       const newPercentageScore = ((score + 1) / (questionCount + 1)) * 100;
       setPercentageScore(newPercentageScore);
     } else {
+    //   const randomMessage = wrongResponseMessages[Math.floor(Math.random() * wrongResponseMessages.length)];
+    // setResponse(randomMessage);
+    //   document.getElementById("response").style.color = "red";
       setQuestionCount(questionCount + 1);
       const newPercentageScore = (score / (questionCount + 1)) * 100;
       setPercentageScore(newPercentageScore);
@@ -227,7 +237,7 @@ function shuffleArray(array) {
     setQuestions(shuffledQuestions);
     setSelectedAnswer(null)
   };
-
+ 
   return (
     <div className="app">
       { showStaffQuiz ? (
