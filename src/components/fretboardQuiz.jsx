@@ -43,6 +43,7 @@ export default function fretboardQuiz({
             overflow: "hidden",
           }}
         >
+          <h className="header">Level 2</h>
           <div className="fretboardquiz">
           <button onClick={startStaffQuiz}>Staff</button>
             <div>

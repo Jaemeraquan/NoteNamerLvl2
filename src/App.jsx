@@ -207,7 +207,7 @@ useEffect(() => {
       setTimeout(() => {
         getNextQuestion();
         setSelectedAnswer(null)
-      }, 3000);
+      }, 2000);
       setScore(score + 1);
       setQuestionCount(questionCount + 1);
       const newPercentageScore = ((score + 1) / (questionCount + 1)) * 100;
